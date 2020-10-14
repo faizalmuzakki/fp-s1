@@ -284,7 +284,13 @@ def nums_to_color(series, dots=False, cmap=cm.coolwarm_r, alpha=0.5):
 
 def generateVoronoiPoly(filename = "siswa"):
     # Change to preferred col & index names
-    sekolahs = pd.read_csv("data/" + filename + "_centroids.csv")
+    filename2 = ""
+    if("sekolah" in filename):
+        filename2 = filename
+    else:
+        filename2 = filename + '_centroids'
+
+    sekolahs = pd.read_csv("data/" + filename2 + '.csv')
     
     try:
         sekolahs = sekolahs.drop(["kode"], axis=1)
@@ -298,7 +304,7 @@ def generateVoronoiPoly(filename = "siswa"):
 
     sekolahs["colors"] = nums_to_color(sekolahs["jml"], alpha=0.9)
 
-    with open("data/" + filename + "_centroids.csv", 'r') as read_obj, \
+    with open("data/" + filename2 + ".csv", 'r') as read_obj, \
         open("data/" + filename + "_centroids_voronoi.csv", 'w', newline='') as write_obj:
             # Create a csv.reader object from the input file object
             csv_reader = reader(read_obj)
@@ -751,16 +757,16 @@ def barPeminatDiterima():
     plt.show()
 
 if __name__ == '__main__':
-    # generateClusters("siswaall")
-    # generateVoronoiPoly("2020/sekolah")
-    # generatePNG("2020/sekolah")
+    # generateClusters("2020/sekolah")
+    generateVoronoiPoly("2020/sekolah")
+    generatePNG("2020/sekolah")
 
     # hitungJarak()
     # barPeminatDiterima()
     # getPilihanSiswa("2020", "2020/siswaall", "siswaall_centroids", "pilihan2020")
     # lineGraph(1, "pilihan_riil")
     # lineGraph(2, "pilihan_riil")
-    lineGraph(3, "pilihan_riil", "2020")
+    # lineGraph(3, "pilihan_riil", "2020")
     
     # generateClusters("siswa")
     # mapping("siswa")
